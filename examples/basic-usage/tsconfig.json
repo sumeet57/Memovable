@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "memovable": ["../../packages/core/src/index.ts"]
+    }
+  },
+  "include": ["index.ts"]
+}
