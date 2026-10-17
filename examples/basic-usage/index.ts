@@ -1,10 +1,13 @@
-import { Memovable } from "memovable";
+import { Memovable, createGeminiHandler } from "memovable";
+
+const geminiHandler = createGeminiHandler({
+  apiKey: process.env.GEMINI_API_KEY ?? "",
+  model: "gemini-3.5-flash",
+});
 
 const memovable = Memovable({
   tokensPerOptimizationCall: 2048,
-  modelHandler: async ({ query, context }) => {
-    return `[Gemma/Gemini Output]: Processed query with intent "${query.intent}". Extracted ${context.length} relevant historical context logs out of ${existingContext.length} total entries.`;
-  },
+  modelHandler: geminiHandler,
 });
 
 const existingContext = [
@@ -30,6 +33,7 @@ const existingContext = [
     role: "user" as const,
     content: "Who updated the IAM roles for the database cluster last night?",
   },
+
   {
     role: "assistant" as const,
     content:
@@ -63,18 +67,8 @@ async function runScenario(queryText: string) {
 
   const result = await memovable.optimise(queryText, existingContext);
 
-  process.stdout.write("\n--- DETECTED INTENT & KEYWORDS ---\n");
-  process.stdout.write(
-    JSON.stringify(
-      {
-        intent: result.query.intent,
-        keywords: result.query.keywords,
-        requiresPreviousContext: result.query.requiresPreviousContext,
-      },
-      null,
-      2,
-    ) + "\n",
-  );
+  process.stdout.write("\n--- TOKEN METRICS ---\n");
+  process.stdout.write(JSON.stringify(result.tokens, null, 2) + "\n");
 
   process.stdout.write("\n--- OPTIMIZED CONTEXT FILTERED ---\n");
   process.stdout.write(JSON.stringify(result.context, null, 2) + "\n");
@@ -84,11 +78,19 @@ async function runScenario(queryText: string) {
 }
 
 async function execute() {
+  // Scenario 1: Incident & Root Cause Analysis
   //   await runScenario("Why did the Auth service crash earlier?");
 
+  // Scenario 2: Identity & Permissions Query
   //   await runScenario("Who changed the database permissions yesterday?");
 
-  await runScenario("What decision was made regarding the payment gateway?");
+  // Scenario 3: Decision & Architectural Changes
+  //   await runScenario("What decision was made regarding the payment gateway?");
+
+  // Scenario 4: Performance & Infrastructure Outage
+  await runScenario("What happened with the Redis cache instance?");
+  // Scenario 5: Multi-topic Follow-up / Ambiguous Query
+  //   await runScenario("Tell me about the deployments done today.");
 }
 
 execute();

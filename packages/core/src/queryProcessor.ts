@@ -94,7 +94,6 @@ const STOPWORDS = new Set([
   "hi",
   "hello",
   "there",
-  "me",
   "about",
   "to",
   "from",
@@ -118,7 +117,6 @@ const STOPWORDS = new Set([
   "down",
   "out",
   "become",
-  "been",
   "go",
   "went",
   "gone",
@@ -130,13 +128,6 @@ const STOPWORDS = new Set([
   "those",
   "right",
   "now",
-  "new",
-  "old",
-  "main",
-  "current",
-  "not",
-  "working",
-  "work",
 ]);
 
 const INTENT_PATTERNS = {

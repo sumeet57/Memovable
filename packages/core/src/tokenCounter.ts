@@ -1,7 +1,3 @@
-export function estimateTokens(text: string): number {
-  return Math.ceil(text.length / 4);
-}
-
 export function trimContextToTokenLimit<T extends { content: string }>(
   items: T[],
   maxTokens: number,
@@ -17,4 +13,14 @@ export function trimContextToTokenLimit<T extends { content: string }>(
   }
 
   return result;
+}
+
+export function estimateTokens(text: string): number {
+  return Math.ceil(text.length / 4);
+}
+
+export function calculateContextTokens(
+  items: Array<{ content: string }>,
+): number {
+  return items.reduce((acc, item) => acc + estimateTokens(item.content), 0);
 }

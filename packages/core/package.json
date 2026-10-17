@@ -16,15 +16,16 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "vitest run",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "llm",
     "context-optimization",
     "prompt-engineering",
     "typescript",
-    "nodejs"
+    "gemma",
+    "gemini"
   ],
   "license": "MIT"
 }
