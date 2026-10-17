@@ -5,7 +5,7 @@ import {
   detectSignals,
   detectIntent,
 } from "../src/queryProcessor";
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, it } from "vitest";
 describe("Query Processor Suite", () => {
   describe("Unit Tests: Individual Helper Functions", () => {
     test("normalizeQuery should strip redundant whitespace and normalize unicode", () => {
@@ -128,5 +128,18 @@ describe("Query Processor Suite", () => {
       expect(() => processQuery(123)).toThrow(TypeError);
       expect(() => processQuery("   ")).toThrow(TypeError);
     });
+  });
+});
+
+describe("processQuery", () => {
+  it("should classify incident and reason intent accurately", () => {
+    const result = processQuery("Why did server-01 fail yesterday?");
+    expect(result.intent).toBe("retrieve_incident_and_reason");
+    expect(result.signals.asksReason).toBe(true);
+    expect(result.signals.mentionsIncident).toBe(true);
+  });
+
+  it("should throw error for empty queries", () => {
+    expect(() => processQuery("")).toThrow(TypeError);
   });
 });

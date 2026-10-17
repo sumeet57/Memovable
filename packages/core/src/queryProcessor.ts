@@ -149,7 +149,7 @@ const INTENT_PATTERNS = {
   comparison:
     /\b(?:versus|vs\.?|compared with|compared to|difference between|rather than|instead of|over)\b/i,
   incident:
-    /\b(?:outage|went down|system down|service down|crash(?:ed)?|failed|failure|incident|unavailable|downtime|error)\b/i,
+    /\b(?:outage|went down|system down|service down|crash(?:ed)?|fail(?:ed|ure|s)?|failure|incident|unavailable|downtime|error)\b/i,
   temporal:
     /\b(?:today|yesterday|tomorrow|currently|recently|earlier|previously|before|after|last week|last month|last year|right now|at present)\b/i,
   followUp: /\b(?:it|this|that|these|those|one|ones|same|another|such)\b/i,
@@ -195,6 +195,7 @@ const SIGNAL_TERMS = new Set([
   "crashed",
   "failed",
   "failure",
+  "fail",
   "incident",
   "unavailable",
   "downtime",
