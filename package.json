@@ -1,8 +1,9 @@
-
 {
   "name": "memovable-monorepo",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "npm run build --workspace=@memovable/core",
     "typecheck": "npm run typecheck --workspace=@memovable/core",

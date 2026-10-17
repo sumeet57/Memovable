@@ -1,0 +1,32 @@
+{
+  "name": "memovable",
+  "version": "0.1.0",
+  "description": "In-memory context optimization library for LLM workflows",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "llm",
+    "context-optimization",
+    "prompt-engineering",
+    "typescript",
+    "memory"
+  ],
+  "author": "",
+  "license": "MIT"
+}
