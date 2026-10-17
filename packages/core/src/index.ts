@@ -17,6 +17,12 @@ export interface MemovableConfig {
   }) => Promise<string>;
 }
 
+export interface OptimiseResult {
+  response: string;
+  context: ContextItem[];
+  query: ProcessedQuery;
+}
+
 export class MemovableEngine {
   private config: MemovableConfig;
 
@@ -27,22 +33,23 @@ export class MemovableEngine {
   public async optimise(
     userQuery: string,
     existingContext: ContextItem[] = [],
-  ): Promise<string> {
+  ): Promise<OptimiseResult> {
     const processed = processQuery(userQuery);
-
     const filteredContext = this.filterContext(processed, existingContext);
 
+    let responseText = "";
     if (this.config.modelHandler) {
-      return await this.config.modelHandler({
+      responseText = await this.config.modelHandler({
         query: processed,
         context: filteredContext,
       });
     }
 
-    return JSON.stringify({
-      processedQuery: processed,
-      optimizedContext: filteredContext,
-    });
+    return {
+      response: responseText,
+      context: filteredContext,
+      query: processed,
+    };
   }
 
   private filterContext(
